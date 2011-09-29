@@ -1,0 +1,1 @@
+module.exports = require('jasmine-node/lib/jasmine-node/cli.js');

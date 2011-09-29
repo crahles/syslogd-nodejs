@@ -1,0 +1,31 @@
+#!/usr/bin/env node
+
+/**
+ * Module dependencies.
+ */
+
+var program = require('commander');
+var server = require("../lib/core");
+
+program
+  .version('0.0.1')
+  .option('-c, --cli', 'enable cli output')
+  .option('-w, --web', 'enable webserver output')
+  .option('-f, --file [file]', 'enable file output', './syslogd.log')
+  .option('-m, --mongo [db:collection]', 'enable mongodb output', 'test:syslogd')
+  .parse(process.argv);
+
+var output = [];
+
+if(program.cli) {
+  var cli_output = require("../lib/outputs/cli");
+  output.push(cli_output);
+}
+if(program.web) {
+
+}
+
+if(output.length > 0)
+  server.start(output);
+else
+  console.log('Please select at least one output!')

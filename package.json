@@ -1,0 +1,29 @@
+{
+    "name":"syslogd-nodejs"
+  , "description":"syslogd in node.js with logging to cli, file, mongodb and via websockets"
+  , "version":"0.0.1"
+  , "homepage":"http://github.com/crahles/syslogd-nodejs"
+  , "repository":"git://github.com/crahles/syslogd-nodejs.git"
+  , "author":"Christoph Rahles <christoph@rahles.de> (http://github.com/crahles)"
+  , "bin": {
+      "syslogd-nodejs": "bin/syslogd-nodejs"
+    }
+  , "dependencies": {
+      "commander": ">= 0.2.0"
+    , "date-utils": ">= 1.2.4"
+    , "glossy": ">= 0.0.4"
+    }
+  , "devDependencies": {
+      "should": ">= 0.0.1"
+    , "jasmine-node": ">= 1.0.10"
+    }
+  , "engines": {
+      "node":">= 0.4.0"
+    }
+  , "licenses": [
+      {
+        "type":"MIT",
+        "url":"http://github.com/crahles/syslogd-nodejs/raw/master/LICENSE"
+      }
+    ]
+}
