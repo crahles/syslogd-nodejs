@@ -53,7 +53,7 @@ var Syslogd = function(){
   }
 
   function filterEmpty(filterValue) {
-    return filter == '' ? true : false;
+    return filterValue == '' ? true : false;
   }
 
   function dataMatchingFilter(data) {
