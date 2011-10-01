@@ -26,8 +26,18 @@ if(program.web) {
   websockets_output.runServer(80);
   output.push(websockets_output);
 }
+if(program.file) {
+  var file_output = require("../lib/outputs/file");
+  file_output.openFile(program.file);
+  output.push(file_output);
+}
 
 if(output.length > 0)
   server.start(output);
 else
-  console.log('Please select at least one output!')
+  console.log('Please select at least one output!');
+
+//If you want to rotate logs, this will re-open the files on sighup
+process.addListener("SIGHUP", function() {
+  console.log('Got SIGHUP');
+});
