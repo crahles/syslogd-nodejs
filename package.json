@@ -12,6 +12,8 @@
       "commander": ">= 0.2.0"
     , "date-utils": ">= 1.2.4"
     , "glossy": ">= 0.0.4"
+    , "socket.io": ">= 0.8.4"
+    , "connect": ">= 1.7.1"
     }
   , "devDependencies": {
       "should": ">= 0.0.1"

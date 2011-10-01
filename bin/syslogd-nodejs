@@ -22,7 +22,9 @@ if(program.cli) {
   output.push(cli_output);
 }
 if(program.web) {
-
+  var websockets_output = require("../lib/outputs/websocket");
+  websockets_output.runServer(80);
+  output.push(websockets_output);
 }
 
 if(output.length > 0)

@@ -17,7 +17,7 @@ function randomValue( min, max ) {
   return( min + parseInt( Math.random() * ( max-min+1 ) ) );
 }
 
-function sendRandomMessage() {
+function sendRandomMessage(i) {
   var msg = logger.produce({
     facility: 'local'+randomValue(0,6),
     severity: 'error',
@@ -33,13 +33,13 @@ function sendRandomMessage() {
 
 }
 
-for (i=0;i<=500;i++)
+for (i=0;i<=200;i++)
 {
 
-  var msg = sendRandomMessage();
+  var msg = sendRandomMessage(i);
   var buffer = new Buffer(msg);
   socket_4.send(buffer, 0, buffer.length, 514, "localhost");
-  var msg = sendRandomMessage();
+  var msg = sendRandomMessage(i);
   var buffer = new Buffer(msg);
   socket_6.send(buffer, 0, buffer.length, 514, "localhost");
 
