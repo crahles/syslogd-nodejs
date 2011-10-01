@@ -1,9 +1,69 @@
-var socket = io.connect('http://localhost');
-socket.on('message', function (line) {
-  var row = "";
-  $.each($.parseJSON(line), function(index, value) {
-    row += "<td>" + value + "</td>";
+$(function(){
+  syslog = Syslogd();
+  syslog.connect();
+
+  $('#btn_hold').click(function(){
+    $(this).toggleClass("down");
   });
-  $('#syslog > tbody:first').prepend("<tr>"+row+"</tr>");
-  $("#syslog > tbody:first tr:gt(99)").remove();
+
+  $('#clearFilter').click(function(){
+    $('#filter').attr('value','');
+  });
 });
+
+
+var Syslogd = function(){
+  var me = {};
+  var socket;
+
+  me.connect = function(){
+    var host = window.location.host.split(":")[0];
+    var port = (window.location.port == '')?':80':':'+window.location.port;
+    var proto = window.location.protocol;
+
+    socket = io.connect(proto+'//'+host+port);
+    socket.on('message', function(data){
+      refreshTable(data);
+    });
+  }
+
+  function refreshTable(data) {
+    var json = jQuery.parseJSON(data);
+    var filter = getFilterValue();
+
+    if (!filterEmpty(filter) && dataMatchingFilter(data)) {
+      writeLine(json);
+    } else if (filterEmpty(filter)) {
+      writeLine(json);
+    }
+    trimLines(99);
+  }
+
+  function getFilterValue() {
+    return $('#filter').attr('value') == undefined ? '' : $('#filter').attr('value');
+  }
+
+  function filterEmpty(filterValue) {
+    return filter == '' ? true : false;
+  }
+
+  function dataMatchingFilter(data) {
+    return data.search(eval("/"+$('#filter').attr('value')+"/i")) != -1
+  }
+
+  function writeLine(json) {
+    var row = "";
+    $.each(json, function(index, value) {
+      row += "<td>" + value + "</td>";
+    });
+    $('#syslog > tbody:first').prepend("<tr>"+row+"</tr>");
+  }
+
+  function trimLines(maxRows) {
+    $('#syslog > tbody:first tr:gt('+maxRows+')').remove();
+  }
+
+  return me;
+}
+
+
