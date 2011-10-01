@@ -1,7 +1,7 @@
 {
     "name":"syslogd-nodejs"
   , "description":"syslogd in node.js with logging to cli, file, mongodb and via websockets"
-  , "version":"0.0.2"
+  , "version":"0.0.4"
   , "homepage":"http://github.com/crahles/syslogd-nodejs"
   , "repository":"git://github.com/crahles/syslogd-nodejs.git"
   , "author":"Christoph Rahles <christoph@rahles.de> (http://github.com/crahles)"
