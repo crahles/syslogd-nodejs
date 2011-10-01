@@ -2,8 +2,9 @@ $(function(){
   syslog = Syslogd();
   syslog.connect();
 
-  $('#btn_hold').click(function(){
-    $(this).toggleClass("down");
+  $('#pauseLog').click(function(){
+    $(this).toggleClass("toggle");
+    $(this).toggleClass("danger");
   });
 
   $('#clearFilter').click(function(){
@@ -29,18 +30,26 @@ var Syslogd = function(){
 
   function refreshTable(data) {
     var json = jQuery.parseJSON(data);
-    var filter = getFilterValue();
 
-    if (!filterEmpty(filter) && dataMatchingFilter(data)) {
-      writeLine(json);
-    } else if (filterEmpty(filter)) {
-      writeLine(json);
+    if (!logIsPaused()) {
+      var filter = getFilterValue();
+
+      if (!filterEmpty(filter) && dataMatchingFilter(data)) {
+        writeLine(json);
+      } else if (filterEmpty(filter)) {
+        writeLine(json);
+      }
+      trimLines(99);
     }
-    trimLines(99);
   }
+
 
   function getFilterValue() {
     return $('#filter').attr('value') == undefined ? '' : $('#filter').attr('value');
+  }
+
+  function logIsPaused() {
+    return $('#pauseLog').hasClass('toggle');
   }
 
   function filterEmpty(filterValue) {
